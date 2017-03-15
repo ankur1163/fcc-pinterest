@@ -1,11 +1,27 @@
 var express = require('express');
 var router = express.Router();
 var PollsCtlr = require('../controllers/PollsController');
+var  SendBird =require('sendbird');
+var d3 = require('d3');
+var sb = new SendBird({
+    appId: '59BEEA34-BDC7-461B-B10B-63705C8B57C2'
+});
 
 var controllers = require("../controllers");
 
 //start 
 ///api/books/r/s/' + username
+
+router.get("/sb/:username/:channelname",function(req,res,next){
+    var username = req.params.username;
+    var channelname=req.params.channelname;
+    console.log("reached in sb create channel")
+    d3.json()
+    
+    
+    
+})
+
 router.get("/:resource/:id/:s/:username", function(req, res, next){
     var resource = req.params.resource;
 
@@ -48,7 +64,11 @@ router.get("/:resource/:id/:s/:username", function(req, res, next){
 
 //starts
 
+//start 
 
+
+
+//end
 
 
 router.get("/:resource/:id/:username", function(req, res, next){
@@ -92,10 +112,12 @@ router.get("/:resource/:id/:username", function(req, res, next){
 
 
 router.get("/:resource/:id", function(req, res, next){
+    console.log("fetching username mages in api.js get ")
     var resource = req.params.resource;
-
+   
     var id = req.params.id;
     var controller = controllers[resource];
+    console.log("controller is ",controller,"id is",id,"resource is ",resource)
     
     if (controller == null) {
         res.json({ confirmation: 'fail',
@@ -105,7 +127,7 @@ router.get("/:resource/:id", function(req, res, next){
     }
     
     // call the correct controller specified by the http request
-    controller.findById(id, function(err, result){
+   controller.findById(id, function(err, result){
         
         if (err) {
            // 3 This DID fire :D
@@ -155,7 +177,50 @@ router.get("/:resource", function(req, res, next){
   
 });
 //goingfunc route 
+//increase heart count
+
+router.post("/:resource/increasecount/:username", function(req, res, next){
+    console.log("increase heart enetered correctly",req.params)
+    console.log("req.body.email",req.body.email,"req.body.",req.body)
+    var resource = req.params.resource;
+   
+    var controller = controllers[resource];
+    var img = req.body.img;
+    
+    var gobj ={"username":req.params.username,"img":req.body.img}
+    
+    if (controller == null) {
+        res.json({ confirmation: 'fail',
+                    message: 'Invalid resource request on POST to: ' + resource
+        });
+        return;
+    }
+    console.log(req.body);
+    controller.increaseheart(gobj, function(err, result) {
+        
+         if (err){
+             console.log(err);
+            res.json({ confirmation: 'fail',
+                message: err
+            });
+            return;
+        }
+        console.log(result);
+        res.json({ confirmation: 'success',
+                message: result
+            });
+        
+    });
+
+});
+
+
+
+
+//increase heart count end
+
 router.post("/:resource/:username/:type", function(req, res, next){
+    sb.connect("ank@gmail.com", function(user, error) {});
     console.log("post request type")
     var type = req.params.type;
    var username = req.params.username;
@@ -165,23 +230,30 @@ router.post("/:resource/:username/:type", function(req, res, next){
    console.log(">>>>>>>>>>>>>")
    
    
-    var controller = controllers[resource];
+    d3.json("https://api.sendbird.com/v3/POST /group_channels/")
+  .header("Content-Type: application/json, charset=utf8",
+"Api-Token: {14e8f22a27aa1d979bc61ef5393488365436e947}").body({ "name": "Chat with Lizzy",
+  "cover_url": "https://sendbird.com/main/img/cover/cover_08.jpg",
+  "custom_type": "personal",
+  "data": "",
+  "user_ids": ["ankur", "johnny"],
+  "is_distinct": true})
+  .get(function(error, root) {
+      
+      if(error){
+          console.log("there is error insb")
+      }
+      else{
+          console.log("connection worked",root)
+      }
+      
+    // Your code here.
+  })
     
     
-    if (controller == null) {
-        res.json({ confirmation: 'fail',
-                    message: 'Invalid resource request on POST to: ' + resource
-        });
-        return;
-    }
-    console.log(req.body);
     
-    if(req.params.type==="request"){
-        console.log("i want this book code")
-        var obj = req.body;
-   obj.requesterusername=username;
-        controller.modifyrequests(req.params, obj,function(err, result) {
-        console.log("obj in modfyrequests",obj);
+    /*
+  
          if (err){
              console.log("modify request error",err);
             res.json({ confirmation: 'fail',
@@ -195,28 +267,9 @@ router.post("/:resource/:username/:type", function(req, res, next){
             });
         
     });
+    
         
-    }
-    else{
-        console.log("add code")
-        var obj = req.body;
-         controller.modify(req.params, obj,function(err, result) {
-        console.log("obj in modfy",obj);
-         if (err){
-            
-            res.json({ confirmation: 'fail',
-                message: err
-            });
-            return;
-        }
-        
-        res.json({ confirmation: 'success',
-                message: result
-            });
-        
-    });
-        
-    }
+   */
     
 
 });
@@ -254,6 +307,50 @@ router.post("/:resource", function(req, res, next){
 
 });
 
+
+//start 
+
+router.post("/:resource/:username", function(req, res, next){
+    console.log("req",req.body)
+    console.log("params",req.params)
+    var username = req.params.username;
+    var title = req.body.title;
+    var img = req.body.myimages;
+    var resource = req.params.resource;
+   console.log("entered in api.js")
+    var controller = controllers[resource];
+    console.log("resource",resource)
+    console.log("controllers",controllers[resource]);
+    console.log("image post router",title,"img",img,"resource",resource,"username",username,"controller",controller)
+    var obj = {"title":title,"img":img,"resource":resource,"username":username,thosewhovoted:0}
+   if (controller == null) {
+        res.json({ confirmation: 'fail',
+                    message: 'Invalid resource request on POST to: ' + resource
+        });
+        return;
+    }
+    console.log(req.body);
+    controller.create(obj, function(err, result) {
+        
+         if (err){
+             console.log(err);
+            res.json({ confirmation: 'fail',
+                message: err
+            });
+            return;
+        }
+        console.log(result);
+        res.json({ confirmation: 'success',
+                message: result
+            });
+        
+    });
+
+});
+
+
+
+//end
 router.post("*", function(req, res, next){
     var url = req.url;
     console.log("here's the url",url)
@@ -298,9 +395,11 @@ router.delete("/:resource/:id", function(req, res, next){
     var resource = req.params.resource;
 
     var id = req.params.id;
-    console.log("in api.js file",resource,id)
+    var bd = req.body;
+    console.log("in api.js filen delete",resource,id)
     var controller = controllers[resource];
-    
+    var gobj = {"username":id,"img":req.body.img}
+    console.log("delete gobj",gobj)
     if (controller == null) {
         res.json({ confirmation: 'fail',
                     message: 'User made invalid resource request'
@@ -309,15 +408,15 @@ router.delete("/:resource/:id", function(req, res, next){
     }
     
     // call the correct controller specified by the http request
-    controller.delete(id, function(err, result){
+    controller.delete(gobj, function(err, result){
            if (err){
                 res.json({ confirmation: 'fail',
                     message: 'Not found'
                 });
                 return;
             }
-            
-            res.json({ confirmation: 'success.The poll got deleted',
+            console.log("delete api",result)
+            res.json({ confirmation: 'success',
                     message: result
                 });
             
@@ -352,7 +451,7 @@ router.delete("/:resource/:rusername/:susername/:isbn", function(req, res, next)
                 return;
             }
             
-            res.json({ confirmation: 'success.The poll got deleted',
+            res.json({ confirmation: 'success',
                     message: result
                 });
             

@@ -1,12 +1,14 @@
+// src/utils/AuthService.js
+import { EventEmitter } from 'events'
 import Auth0Lock from 'auth0-lock'
 import { browserHistory } from 'react-router'
 
-export default class AuthService {
+export default class AuthService  {
   constructor(clientId, domain) {
     // Configure Auth0
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'https://yelp-project-restlessankur.c9users.io/login',
+        redirectUrl: 'https://fcc-pinterest-restlessankur.c9users.io/login',
         responseType: 'token'
       }
     })
@@ -18,14 +20,42 @@ export default class AuthService {
 
   _doAuthentication(authResult) {
     // Saves the user token
+    console.log("this in authservice",this)
     this.setToken(authResult.idToken)
+    console.log("going to call profile from auth0")
+    console.log("this in authservice.js",this)
+    console.log("this.lock.getprofile",this.lock.getProfile)
     // navigate to the home route
-    browserHistory.replace('/home')
+    browserHistory.replace('/Mypins')
+      this.lock.getProfile(authResult.idToken, (error, profile) => {
+      if (error) {
+        console.log('Error loading the Profile', error)
+      } else {
+        console.log("authenticated success")
+        this.setProfile(profile)
+      }
+    })
   }
 
   login() {
     // Call the show method to display the widget.
     this.lock.show()
+  }
+  
+  
+  
+   setProfile(profile) {
+    // Saves profile data to local storage
+    localStorage.setItem('profile', JSON.stringify(profile))
+    // Triggers profile_updated event to update the UI
+    console.log("iside set profile function")
+    this.emit('profile_updated', profile)
+  }
+
+  getProfile() {
+    // Retrieves the profile data from local storage
+    const profile = localStorage.getItem('profile')
+    return profile ? JSON.parse(localStorage.profile) : {}
   }
 
   loggedIn() {

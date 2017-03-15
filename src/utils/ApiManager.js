@@ -102,7 +102,8 @@ export default {
 				    callback({message:response.body.message, null});
 				    return;
 				}
-				callback(null,null);
+				console.log("api manager after deleting",response)
+				callback(null,response.message);
             })
         
     }

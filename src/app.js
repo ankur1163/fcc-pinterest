@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom'
 
 import Home from './components/layout/Home.js'
 
-import Allpins from './components/layout/Allpins'
+import Allpins from './components/layout/Allpins';
 import Lp from './components/layout/Lp'
+import Totalbooks from './components/layout/Totalbooks'
+import Mypins from './components/layout/Mypins';
+import SB from './components/layout/SB';
+
 
 
 import Waste from './Login/Waste.js'
+import Login from './Login/Login.js'
 
-//import    Polldetail from './components/layout/Polldetail.js'; // testing different Poll details
 
 
 import Container from './components/containers/Container.js';
@@ -19,18 +23,10 @@ import {Route,Router,browserHistory,hashHistory,IndexRoute} from 'react-router'
 //import makeMainRoutes from './components/routes'
 import AuthService from './utils/AuthService'
 
-//this cause error
-//<Route path="allmemberbooks" component={Allmemberbooks}  />
-//end
 
-//<Route path="allbooks" component={Allmemberbooks} />
-//<Route path="mybooks" component={Mybooks} />
-//<Route path="allbooks" component={Allmemberbooks} />
-//<Route path="allmemberbooks" component={Allmemberbooks}  />
-//<Route path="totalbooks" component={Totalbooks} />
 
 const mountNode = document.getElementById('root');
-const auth = new AuthService('HNfg5DdOA7ZlawVWyGoFZX8qM2lpZQGV', 'app1163.auth0.com');
+const auth = new AuthService('00yIamv8sN0xx4eg3PtgotR477S7YG57', 'app1163.auth0.com');
 
 // validate authentication for private routes
 const requireAuth = (nextState, replace) => {
@@ -43,9 +39,11 @@ const requireAuth = (nextState, replace) => {
 ReactDOM.render( <Router history={browserHistory}>
     <Route path="/" component={Container} auth={auth}>
     
-    <IndexRoute component={Lp} />
+    <IndexRoute component={Lp}  />
     <Route path="Allpins" component={Allpins} />
-   
+    <Route path="Mypins" component={Mypins} onEnter={requireAuth}/>
+    <Route path="SB" component={SB} />
+   <Route path="login" component={Login} />
      </Route>
     
     

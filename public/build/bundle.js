@@ -27360,10 +27360,10 @@
 	              null,
 	              element.title
 	            ),
-	            _react2.default.createElement('i', { id: element.img, onClick: handleheart, className: 'fa fa-heart', 'aria-hidden': 'true' }),
+	            _react2.default.createElement('i', { id: element.img, className: 'fa fa-heart', 'aria-hidden': 'true' }),
 	            element.hearts,
 	            ' \u2003\u2003',
-	            _react2.default.createElement('i', { id: element.img, onClick: handledelete, className: 'fa fa-trash', 'aria-hidden': 'true' }),
+	            _react2.default.createElement('i', { id: element.img, className: 'fa fa-trash', 'aria-hidden': 'true' }),
 	            'Delete'
 	          )
 	        );

@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 var Masonry = require('react-masonry-component');
 var FontAwesome = require('react-fontawesome');
 import Api from '../../utils/ApiManager.js';
+import $ from 'jquery';
 var shortid = require('shortid');
 import {
   Modal,
@@ -88,6 +89,21 @@ class Mypins extends Component {
                 
             });
        
+     }
+     checkimages(){
+       console.log("check images started")
+                  //$(window).load(function() {
+                    console.log("this in jquery",this)
+            $('img').each(function() {
+              if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                // image was broken, replace with your new image
+                this.src = 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg';
+              }
+            });
+          //});
+     }
+     addDefaultSrc(e){
+         e.target.src = 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg'
      }
      handleheart(e){
          console.log("handle heart")
@@ -199,6 +215,11 @@ class Mypins extends Component {
             this.setState({
                     myimages: response.message.myimages
                 });
+                
+                //jquery starts 
+                  
+                this.checkimages();
+                //jquery ends
               
             }
             else{
@@ -209,6 +230,9 @@ class Mypins extends Component {
         
             
         });
+        
+     
+
           
       }
  
@@ -216,6 +240,7 @@ class Mypins extends Component {
       console.log("this.state",this.state)
         var handleheart = this.handleheart.bind(this);
         var handledelete = this.handledelete.bind(this);
+        var addDefaultSrc = this.addDefaultSrc.bind(this);
      
      /*
       var URL1 = "https://dri2.img.digitalrivercontent.net/Storefront/Site/msusa/images/promo/PC/en-MSUSA-PC-Mod-G-FY17-Holiday-16-Theme-PC-Pages-V2-tablet.png";
@@ -234,7 +259,7 @@ class Mypins extends Component {
                
                 
                 <li  id={element.img} className="thumbnail article">
-                    <img src={element.img} /><br/>
+                    <img onError={addDefaultSrc} src={element.img} /><br/>
                     <h4>{element.title}</h4><i id={element.img} onClick={handleheart} className="fa fa-heart" aria-hidden="true"></i>{element.hearts} &emsp;&emsp;
                    <i id={element.img} onClick={handledelete} className="fa fa-trash" aria-hidden="true"></i>Delete
                     

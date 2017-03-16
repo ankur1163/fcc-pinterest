@@ -89330,7 +89330,7 @@
 	    // Configure Auth0
 	    this.lock = new _auth0Lock2.default(clientId, domain, {
 	      auth: {
-	        redirectUrl: 'https://fcc-pinterest-restlessankur.c9users.io/login',
+	        redirectUrl: 'https://fcc-pinterest-app-1163.herokuapp.com/login',
 	        responseType: 'token'
 	      }
 	    });

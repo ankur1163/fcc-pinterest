@@ -8,6 +8,21 @@ var Books = require("../models/Books.js");
 
 
 module.exports = {
+    
+    find: function(id, callback) {
+        console.log("image controller find all pins ",id)
+        var dataarray = [];
+        Images.find(null,function(err,data){
+                if(err){
+                    console.log("there is err in fetching data for images")
+                    callback(err,null)
+                }
+                else{
+                    callback(null,data)
+                }
+            })
+            
+    },
 
 
     findById: function(id, callback) {

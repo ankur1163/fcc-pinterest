@@ -65,7 +65,39 @@ router.get("/:resource/:id/:s/:username", function(req, res, next){
 //starts
 
 //start 
+//get allpins 
+router.get("/:resource/all/:username", function(req, res, next){
+    console.log("got in inside correct api.js")
+    var resourceFrom = req.params.resource;
+    var controller = controllers[resourceFrom];
+    
+    if (controller == null) {
+        res.json({ confirmation: 'fail',
+                    message: 'User made invalid resource request'
+        });
+        return;
+    }
+    
+    // call the correct controller specified by the http request
+    controller.find(null, function(err, results){
+        if (err){
+                res.json({ confirmation: 'fail',
+                    message: err
+                });
+                return;
+            }
+            res.json({ confirmation: 'success',
+                    message: results
+        });
+    });
 
+  
+});
+
+
+
+
+//end allpins
 
 
 //end
@@ -147,6 +179,8 @@ router.get("/:resource/:id", function(req, res, next){
     });
     
 });
+
+
 
 
 router.get("/:resource", function(req, res, next){

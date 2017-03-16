@@ -27362,9 +27362,7 @@
 	            ),
 	            _react2.default.createElement('i', { id: element.img, className: 'fa fa-heart', 'aria-hidden': 'true' }),
 	            element.hearts,
-	            ' \u2003\u2003',
-	            _react2.default.createElement('i', { id: element.img, className: 'fa fa-trash', 'aria-hidden': 'true' }),
-	            'Delete'
+	            ' \u2003\u2003'
 	          )
 	        );
 	      });

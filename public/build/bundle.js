@@ -29689,24 +29689,25 @@
 	        }
 	      });
 	    }
-	  }, {
-	    key: 'checkimages',
-	    value: function checkimages() {
-	      console.log("check images started");
-	      //$(window).load(function() {
-	      console.log("this in jquery", this);
-	      (0, _jquery2.default)('img').each(function () {
-	        if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-	          // image was broken, replace with your new image
-	          this.src = 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg';
-	        }
-	      });
-	      //});
+	    /*
+	    checkimages(){
+	      console.log("check images started")
+	                 //$(window).load(function() {
+	                   console.log("this in jquery",this)
+	           $('img').each(function() {
+	             if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+	               // image was broken, replace with your new image
+	               this.src = 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg';
+	             }
+	           });
+	         //});
 	    }
+	    */
+	
 	  }, {
 	    key: 'addDefaultSrc',
 	    value: function addDefaultSrc(e) {
-	      e.target.src = 'https://pbs.twimg.com/profile_images/600060188872155136/st4Sp6Aw.jpg';
+	      e.target.src = 'http://www.bleachchemgroup.com/Admin/Gallery_img/image-not-available.jpg';
 	    }
 	  }, {
 	    key: 'handleheart',

@@ -27345,6 +27345,27 @@
 	       
 	       //image-element-class
 	       const elements = [{src: URL1,title:"first",hearts:3}, {src: URL2,title:"second",hearts:5}, {src: URL3,title:"third",hearts:7},{src: URL4,title:"second",hearts:5}, {src: URL5,hearts:9}, {src: URL6,hearts:3}];
+	         
+	           <button onClick={this.openmodal.bind(this)}> Add new Pins</button>
+	                                <Modal isOpen={this.state.isOpen} onRequestHide={this.hideModal}>
+	                   <ModalHeader>
+	                     <ModalClose onClick={this.hideModal}/>
+	                     <ModalTitle>Add new pin</ModalTitle>
+	                   </ModalHeader>
+	                   <ModalBody>
+	                     <p>Image url</p> <input type="text" onChange={this.handleimg.bind(this)} value={this.state.img} /><br />
+	                     <p>Title</p> <input type="text" onChange={this.handletitle.bind(this)} value={this.state.title} />
+	                   </ModalBody>
+	                   <ModalFooter>
+	                     <button className='btn btn-default' onClick={this.hideModal}>
+	                       Close
+	                     </button>
+	                     <button className='btn btn-primary' onClick={this.saveModal.bind(this)}>
+	                       Save changes
+	                     </button>
+	                   </ModalFooter>
+	                 </Modal>
+	         
 	         */
 	      var childElements = this.state.myimages.map(function (element, i) {
 	        return _react2.default.createElement(
@@ -27384,58 +27405,6 @@
 	          'h2',
 	          null,
 	          ' To give hearts to images , Please login'
-	        ),
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.openmodal.bind(this) },
-	          ' Add new Pins'
-	        ),
-	        _react2.default.createElement(
-	          _reactModalBootstrap.Modal,
-	          { isOpen: this.state.isOpen, onRequestHide: this.hideModal },
-	          _react2.default.createElement(
-	            _reactModalBootstrap.ModalHeader,
-	            null,
-	            _react2.default.createElement(_reactModalBootstrap.ModalClose, { onClick: this.hideModal }),
-	            _react2.default.createElement(
-	              _reactModalBootstrap.ModalTitle,
-	              null,
-	              'Add new pin'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactModalBootstrap.ModalBody,
-	            null,
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Image url'
-	            ),
-	            ' ',
-	            _react2.default.createElement('input', { type: 'text', onChange: this.handleimg.bind(this), value: this.state.img }),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Title'
-	            ),
-	            ' ',
-	            _react2.default.createElement('input', { type: 'text', onChange: this.handletitle.bind(this), value: this.state.title })
-	          ),
-	          _react2.default.createElement(
-	            _reactModalBootstrap.ModalFooter,
-	            null,
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'btn btn-default', onClick: this.hideModal },
-	              'Close'
-	            ),
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'btn btn-primary', onClick: this.saveModal.bind(this) },
-	              'Save changes'
-	            )
-	          )
 	        ),
 	        _react2.default.createElement(
 	          Masonry,

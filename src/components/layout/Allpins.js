@@ -267,7 +267,7 @@ class Allpins extends Component {
                 <li  id={element.img} className="thumbnail article">
                     <img onError={addDefaultSrc} src={element.img} /><br/>
                     <h4>{element.title}</h4><i id={element.img}  className="fa fa-heart" aria-hidden="true"></i>{element.hearts} &emsp;&emsp;
-                   <i id={element.img}  className="fa fa-trash" aria-hidden="true"></i>Delete
+                   
                     
                     
                 </li>
